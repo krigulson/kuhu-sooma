@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-lg-12 text-center">
+    <h1 class="mt-5" id="random-place">
+        <ul class="list-unstyled texts" >
+        </ul>
+    </h1>
+    <p class="lead">
+      <% if current_user.present? %>
+        <%= link_to('Vali koht', places_index_path, method: :post, remote: true, id: 'picker-btn', class: 'btn btn-success') %>
+      <% else %>
+        <%= link_to "Logi sisse(google)", user_google_oauth2_omniauth_authorize_path %>
+      <% end %>
+    </p>
+    <p>Valikus on <%= @places.count %> söögikohta
+  </div>
+</div>
+
+<ul class="list-unstyled" id="history-list">
+  <% @placesHistory.each do |history| %>
+  <li><%= distance_of_time_in_words(Time.now, history.created_at) %> ago <%= history.place.name %> - <%= history.user.name %> </li>
+  <% end %>
+<ul>
+
+
+
